@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paste — Generate online links for your images, shortens/hides URL</title>
+    <meta name="description" content="Your own image host. Drop it, paste it, get a link. No account, no tracking.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div id="spotlight"></div>
+
+    <div class="wrap">
+        <header>
+            <a class="wordmark" href="https://ayocodes-portfolio.vercel.app" target="_blank" rel="noopener">
+                <span class="dot"></span> Ayocodes
+            </a>
+            <nav class="toolset">
+                <a class="pill" href="https://fetch-liart-gamma.vercel.app/" target="_blank" rel="noopener">fetch ↗</a>
+                <a class="pill" href="https://seize-ashy.vercel.app/" target="_blank" rel="noopener">seize ↗</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="eyebrow">Self-hosted · no account · no tracking</div>
+
+            <h1 aria-label="Paste">
+                <span class="split" style="animation-delay:.15s">P</span>
+                <span class="split" style="animation-delay:.2s">a</span>
+                <span class="split" style="animation-delay:.25s">s</span>
+                <span class="split" style="animation-delay:.3s">t</span>
+                <em class="split" style="animation-delay:.35s">e</em>
+            </h1>
+
+            <p class="sub">Drop an image or paste a URL — get a clean <code>/paste/</code> link back in seconds.</p>
+
+            <!-- Mode Tabs -->
+            <div class="mode-tabs" id="modeTabs">
+                <button class="mode-tab active" data-mode="image">📷 Upload Image</button>
+                <button class="mode-tab" data-mode="url">🔗 Shorten URL</button>
+            </div>
+
+            <div class="stage">
+                <!-- Image Upload Mode -->
+                <div class="dropzone" id="dropZone">
+                    <svg class="border-svg" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#8a6417" />
+                                <stop offset="50%" stop-color="#c9a227" />
+                                <stop offset="100%" stop-color="#ecd48a" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" />
+                    </svg>
+
+                    <svg class="drop-icon" viewBox="0 0 48 48" fill="none">
+                        <path d="M24 4C24 4 12 20 12 29C12 36.2 17.4 42 24 42C30.6 42 36 36.2 36 29C36 20 24 4 24 4Z"
+                            stroke="#8a6417" stroke-width="1.6" fill="url(#goldGradient)" fill-opacity="0.15" />
+                    </svg>
+
+                    <h3>Drop your image here</h3>
+                    <p>or click to browse · JPG, PNG, GIF, WEBP · up to 10MB</p>
+                    <div class="kbd"><span>⌘</span><span>V</span> to paste</div>
+
+                    <!-- Expiration Options -->
+                    <div class="expiration-options" id="expirationOptions">
+                        <button class="expiration-option" data-value="2mins">2 mins</button>
+                        <button class="expiration-option" data-value="2days">2 days</button>
+                        <button class="expiration-option" data-value="2weeks">2 weeks</button>
+                        <button class="expiration-option" data-value="1month">1 month</button>
+                        <button class="expiration-option forever active" data-value="forever">Forever</button>
+                    </div>
+
+                    <br>
+                    <button class="btn" type="button">Choose an image</button>
+                    <input type="file" id="fileInput" accept="image/*">
+                </div>
+
+                <!-- URL Shortener Mode -->
+                <div class="dropzone url-mode" id="urlDropZone" style="display:none;">
+                    <svg class="border-svg" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="goldGradient2" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#8a6417" />
+                                <stop offset="50%" stop-color="#c9a227" />
+                                <stop offset="100%" stop-color="#ecd48a" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" />
+                    </svg>
+
+                    <svg class="drop-icon" viewBox="0 0 48 48" fill="none">
+                        <path
+                            d="M28 20L20 28M30 14L34 10M14 30L10 34M32 28L36 32M16 16L12 12M28 28L34 34M14 20L10 14M20 14L14 10"
+                            stroke="#8a6417" stroke-width="1.6" stroke-linecap="round" />
+                        <circle cx="30" cy="18" r="4" stroke="#8a6417" stroke-width="1.6" />
+                        <circle cx="18" cy="30" r="4" stroke="#8a6417" stroke-width="1.6" />
+                    </svg>
+
+                    <h3>Shorten any URL</h3>
+                    <p>Get a clean <code>/paste/</code> link that hides your referrer</p>
+
+                    <div class="url-input-group">
+                        <input type="url" id="urlInput" placeholder="https://example.com/some/long/url"
+                            autocomplete="url">
+                        <button class="btn btn-sm" id="shortenBtn">Shorten URL</button>
+                    </div>
+                    <div style="margin-top:12px; font-size:12px; color:var(--ink-600);">
+                        🔒 Referrer hidden · No tracking · Instant
+                    </div>
+                </div>
+
+                <!-- Progress -->
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Uploading…</div>
+                </div>
+
+                <!-- Result -->
+                <div class="result" id="result">
+                    <div class="success">
+                        <svg class="check" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="11" stroke="#8a6417" stroke-width="1.4" />
+                            <path d="M7 12.5L10.5 16L17 8.5" stroke="#8a6417" stroke-width="1.6" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        Link ready
+                    </div>
+
+                    <div class="link-container">
+                        <a href="#" id="resultLink" target="_blank">paste.host/paste/abc123</a>
+                        <div class="link-actions">
+                            <button class="icon-btn" id="copyBtn" title="Copy link">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <rect x="9" y="9" width="12" height="12" rx="2" stroke="currentColor"
+                                        stroke-width="1.6" />
+                                    <path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6" />
+                                </svg>
+                            </button>
+                            <button class="icon-btn" id="downloadBtn" title="Download" style="display:none;">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 4v11m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M5 19h14" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </button>
+                            <button class="icon-btn" id="deleteBtn" title="Delete link">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"
+                                        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="1.6"
+                                        stroke-linecap="round" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="preview-frame" id="previewFrame">
+                        <img id="previewImage" class="preview-image" alt="Uploaded preview">
+                    </div>
+
+                    <div class="target-url" id="targetUrlDisplay" style="display:none;">
+                        <strong>Redirects to:</strong> <span id="targetUrlText"></span>
+                    </div>
+
+                    <div class="expiration-info" id="expirationInfo" style="display:none;">
+                        ⏰ <span id="expirationText"></span>
+                    </div>
+
+                    <div class="result-footer">
+                        <span class="info" id="resultInfo"></span>
+                        <button class="btn-ghost" id="resetBtn" type="button">↺ Do another</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="credit">Crafted by <a href="https://ayocodes-portfolio.vercel.app" target="_blank"
+                    rel="noopener">Ayocodes</a> — Ayomide O.</div>
+            <div class="foot-links">
+                <a href="https://ayocodes-portfolio.vercel.app" target="_blank" rel="noopener">Portfolio</a>
+                <a href="https://fetch-liart-gamma.vercel.app/" target="_blank" rel="noopener">Fetch</a>
+                <a href="https://seize-ashy.vercel.app/" target="_blank" rel="noopener">Seize</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>
