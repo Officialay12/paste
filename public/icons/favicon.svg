@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D9A73B"/>
+      <stop offset="100%" stop-color="#8A6417"/>
+    </linearGradient>
+  </defs>
+
+  <!-- full-bleed background required for maskable icons -->
+  <rect x="0" y="0" width="512" height="512" fill="#FBF7EC"/>
+
+  <!-- mark, kept inside the safe zone (centered, ~80% max extent) -->
+  <g transform="translate(256,256)">
+    <!-- clip / paste body -->
+    <rect x="-132" y="-132" width="264" height="264" rx="64"
+          transform="rotate(-8)"
+          fill="url(#goldGrad)"/>
+    <!-- folded corner -->
+    <path d="M 46 -132 L 132 -132 L 132 -46 Z" transform="rotate(-8)"
+          fill="#1E1B16" fill-opacity="0.16"/>
+
+    <!-- link ring -->
+    <g transform="rotate(10)">
+      <circle cx="50" cy="40" r="76" fill="none" stroke="#1E1B16" stroke-width="26"
+              stroke-dasharray="370 108" stroke-linecap="round"
+              transform="rotate(-40 50 40)"/>
+    </g>
+
+    <!-- caret tick -->
+    <rect x="-20" y="86" width="20" height="64" rx="10" fill="#1E1B16"
+          transform="rotate(-8)"/>
+  </g>
+</svg>
