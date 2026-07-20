@@ -264,10 +264,10 @@ Expired images are automatically deleted from the server every 60 seconds.
 ![Upload Mode](screenshots/paste.png)
 
 ### URL Shortener Mode
-![URL Shortener](screenshots/paste url.png)
+![URL Shortener](screenshots/paste-url.png)
 
 ### Result with Expiration
-![Result with Expiration](screenshots/paste exp.png)
+![Result with Expiration](screenshots/paste-exp.png)
 
 ## 📱 PWA Installation
 
