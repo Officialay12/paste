@@ -214,6 +214,62 @@ h1 em {
     color: var(--gold-700);
 }
 
+/* ===== Install Prompt ===== */
+.install-prompt {
+    margin-top: 20px;
+    text-align: center;
+    opacity: 0;
+    animation: rise 0.7s var(--ease) forwards;
+    animation-delay: 0.45s;
+}
+
+.install-prompt.show {
+    display: block;
+}
+
+.install-btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 16px;
+    background: linear-gradient(135deg, var(--gold-700), var(--gold-500));
+    color: var(--cream-50);
+    border: none;
+    padding: 16px 40px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 8px 22px -8px var(--gold-glow);
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+    width: 100%;
+    max-width: 320px;
+}
+
+.install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px -8px var(--gold-glow);
+}
+
+.install-btn:active {
+    transform: translateY(0);
+}
+
+.install-subtitle {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-600);
+    font-family: var(--font-body);
+}
+
+@media (min-width: 768px) {
+    .install-prompt {
+        display: none !important;
+    }
+}
+
+/* When app is already installed, hide the prompt */
+.pwa-installed .install-prompt {
+    display: none !important;
+}
+
 .mode-tabs {
     display: flex;
     gap: 6px;

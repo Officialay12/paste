@@ -105,6 +105,14 @@
 
             <p class="sub">Drop an image or paste a URL: get a clean <code>/paste/</code> link back in seconds.</p>
 
+            <!-- Install Prompt -->
+            <div class="install-prompt" id="installPrompt" style="display:none;">
+                <button class="btn install-btn" id="installBtn">
+                    📱 Install Paste
+                </button>
+                <p class="install-subtitle">Add to home screen for the best experience</p>
+            </div>
+
             <!-- Mode Tabs -->
             <div class="mode-tabs" id="modeTabs">
                 <button class="mode-tab active" data-mode="image">📷 Upload Image</button>
@@ -279,16 +287,6 @@
         }
 
         // Track PWA installation
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            console.log('PWA can be installed');
-
-            // Show install button (optional)
-            // You could add a custom install button here
-        });
-
         window.addEventListener('appinstalled', () => {
             console.log('PWA installed successfully');
             if (typeof gtag !== 'undefined') {
