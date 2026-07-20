@@ -1,11 +1,10 @@
-
 # Paste: Image Hosting & URL Shortener
 
 > Built by [Ayocodes](https://ayocodes-portfolio.vercel.app)
 
 A self-hosted image hosting and URL shortening service with expiration times. No accounts, no tracking, no nonsense.
 
-![Paste Screenshot](https://paste-9368.onrender.com/paste/6910677d4969)
+![Paste Screenshot](screenshots/paste.png)
 
 ## ✨ Features
 
@@ -21,6 +20,7 @@ A self-hosted image hosting and URL shortening service with expiration times. No
 - 🎨 **Beautiful UI** - Clean, modern interface with warm cream aesthetic
 - ⚡ **Fast** - Lightweight and responsive
 - 🗑️ **Delete Links** - Delete your images or shortened links anytime
+- 📱 **PWA Support** - Installable on Android and iOS devices
 
 ## 🚀 Quick Start
 
@@ -112,12 +112,12 @@ Another great free alternative with persistent storage.
 
 ## 📊 Hosting Comparison
 
-| Platform | Free Tier | Persistent Storage | Ease of Use | Best For |
-|----------|-----------|-------------------|-------------|----------|
-| **Render** | ✅ Yes | ✅ Yes (Disks) | ⭐⭐⭐⭐⭐ | **This project** |
-| **Vercel** | ✅ Yes | ❌ No (Use S3) | ⭐⭐⭐⭐⭐ | Serverless apps |
-| **Railway** | ✅ Yes | ✅ Yes | ⭐⭐⭐⭐ | Simple deployment |
-| **Heroku** | ⚠️ Limited | ✅ Yes | ⭐⭐⭐⭐⭐ | Legacy apps |
+| Platform    | Free Tier | Persistent Storage | Ease of Use | Best For          |
+| ----------- | --------- | ------------------ | ----------- | ----------------- |
+| **Render**  | ✅ Yes     | ✅ Yes (Disks)      | ⭐⭐⭐⭐⭐       | **This project**  |
+| **Vercel**  | ✅ Yes     | ❌ No (Use S3)      | ⭐⭐⭐⭐⭐       | Serverless apps   |
+| **Railway** | ✅ Yes     | ✅ Yes              | ⭐⭐⭐⭐        | Simple deployment |
+| **Heroku**  | ⚠️ Limited | ✅ Yes              | ⭐⭐⭐⭐⭐       | Legacy apps       |
 
 ---
 
@@ -135,6 +135,11 @@ Another great free alternative with persistent storage.
 - **Vanilla JavaScript** - No frameworks needed
 - **Google Fonts** - Fraunces & Space Grotesk
 
+### PWA
+- **Service Worker** - Offline support
+- **Web App Manifest** - Installable on Android & iOS
+- **Apple Touch Icons** - iOS home screen support
+
 ### Deployment
 - **Render** - Recommended for persistent storage
 - **Vercel** - Serverless deployment (with modifications)
@@ -147,13 +152,30 @@ paste/
 ├── public/                 # Frontend files
 │   ├── index.html         # Main page
 │   ├── styles.css         # All styles
-│   └── script.js          # All JavaScript
+│   ├── script.js          # All JavaScript
+│   ├── sw.js              # Service Worker (PWA)
+│   ├── manifest.json      # Web App Manifest (PWA)
+│   ├── favicon.svg        # Favicon
+│   └── icons/             # PWA icons
+│       ├── icon-72x72.png
+│       ├── icon-96x96.png
+│       ├── icon-128x128.png
+│       ├── icon-144x144.png
+│       ├── icon-152x152.png
+│       ├── icon-192x192.png
+│       ├── icon-384x384.png
+│       └── icon-512x512.png
+├── screenshots/            # README screenshots
+│   ├── upload-mode.png
+│   ├── url-shortener.png
+│   └── result-expiration.png
 ├── data/                  # JSON data storage
 │   ├── links.json        # Shortened URLs data
 │   └── images.json       # Image metadata with expiration
 ├── uploads/               # Uploaded image files
 ├── server.js              # Main server application
 ├── package.json           # Dependencies and scripts
+├── render.yaml            # Render deployment config
 ├── vercel.json            # Vercel deployment config
 ├── .gitignore             # Git ignore rules
 └── README.md              # This file
@@ -161,14 +183,14 @@ paste/
 
 ## 🎯 API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/upload` | Upload an image with expiration option |
-| POST | `/shorten` | Shorten a URL |
-| GET | `/paste/:id` | Access image or shortened URL |
-| DELETE | `/delete/:id` | Delete an image |
-| DELETE | `/link/:id` | Delete a shortened URL |
-| GET | `/health` | Health check endpoint |
+| Method | Endpoint      | Description                            |
+| ------ | ------------- | -------------------------------------- |
+| POST   | `/upload`     | Upload an image with expiration option |
+| POST   | `/shorten`    | Shorten a URL                          |
+| GET    | `/paste/:id`  | Access image or shortened URL          |
+| DELETE | `/delete/:id` | Delete an image                        |
+| DELETE | `/link/:id`   | Delete a shortened URL                 |
+| GET    | `/health`     | Health check endpoint                  |
 
 ### Example Usage
 
@@ -209,13 +231,13 @@ curl -X POST -H "Content-Type: application/json" -d '{"url":"https://example.com
 
 ## ⏰ Expiration Logic
 
-| Option | Duration | Use Case |
-|--------|----------|----------|
-| 2 mins | 120 seconds | Temporary sharing, quick previews |
-| 2 days | 48 hours | Short-term sharing, collaboration |
-| 2 weeks | 14 days | Medium-term storage |
-| 1 month | 30 days | Extended sharing |
-| Forever | Never expires | Permanent storage |
+| Option  | Duration      | Use Case                          |
+| ------- | ------------- | --------------------------------- |
+| 2 mins  | 120 seconds   | Temporary sharing, quick previews |
+| 2 days  | 48 hours      | Short-term sharing, collaboration |
+| 2 weeks | 14 days       | Medium-term storage               |
+| 1 month | 30 days       | Extended sharing                  |
+| Forever | Never expires | Permanent storage                 |
 
 Expired images are automatically deleted from the server every 60 seconds.
 
@@ -239,13 +261,27 @@ Expired images are automatically deleted from the server every 60 seconds.
 ## 📸 Screenshots
 
 ### Upload Mode
-![Upload Mode](https://paste-9368.onrender.com/paste/6910677d4969)
+![Upload Mode](screenshots/paste.png)
 
 ### URL Shortener Mode
-![URL Shortener](https://paste-9368.onrender.com/paste/a408f0dc7953)
+![URL Shortener](screenshots/paste url.png)
 
 ### Result with Expiration
-![Result with Expiration](https://paste-9368.onrender.com/paste/89ec714508f9)
+![Result with Expiration](screenshots/paste exp.png)
+
+## 📱 PWA Installation
+
+### On Android
+1. Open Chrome and visit your site
+2. Tap the three-dot menu
+3. Select "Add to Home screen"
+4. Tap "Install" - the app will open in full screen!
+
+### On iOS
+1. Open Safari and visit your site
+2. Tap the Share button
+3. Scroll down and tap "Add to Home Screen"
+4. Tap "Add" - the app will open in full screen!
 
 ## 🤝 Contributing
 
